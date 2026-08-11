@@ -164,8 +164,8 @@
     if (!text) return;
 
     const { score, categoryWeights } = scoreText(text);
-    const description = getScoreDescription(score, categoryWeights);
-
+    const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+    const description = getScoreDescription(score, categoryWeights, wordCount);
     scoreNumber.textContent = score;
     barFill.style.width = score + "%";
 
