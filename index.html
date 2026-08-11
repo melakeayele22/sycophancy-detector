@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sycophancy Detector</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #171a21;
+    --border: #2a2e38;
+    --text: #e8e8ec;
+    --muted: #9aa0ac;
+    --accent: #7c9eff;
+    --low: #4ade80;
+    --mid: #facc15;
+    --high: #f87171;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .container {
+    width: 100%;
+    max-width: 640px;
+  }
+  h1 {
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+  }
+  p.subtitle {
+    color: var(--muted);
+    margin-top: 0;
+    margin-bottom: 28px;
+    font-size: 0.95rem;
+  }
+  textarea {
+    width: 100%;
+    min-height: 160px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    padding: 14px;
+    font-size: 0.95rem;
+    resize: vertical;
+    font-family: inherit;
+  }
+  textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  button {
+    margin-top: 14px;
+    background: var(--accent);
+    color: #0f1115;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:hover {
+    opacity: 0.9;
+  }
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  #result {
+    margin-top: 28px;
+    display: none;
+  }
+  .score-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .score-number {
+    font-size: 2.4rem;
+    font-weight: 700;
+  }
+  .score-label {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .bar-track {
+    width: 100%;
+    height: 8px;
+    background: var(--panel);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .summary {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Sycophancy Detector</h1>
+  <p class="subtitle">Paste an AI response below to score how sycophantic its language is.</p>
+
+  <textarea id="inputText" placeholder="Paste the AI response here..."></textarea>
+  <br>
+  <button id="scoreBtn">Test the Sycophancy Level</button>
+
+  <div id="result">
+    <div class="score-row">
+      <div class="score-number" id="scoreNumber">0</div>
+      <div class="score-label">/ 100</div>
+    </div>
+    <div class="bar-track">
+      <div class="bar-fill" id="barFill"></div>
+    </div>
+    <div class="summary" id="summaryText"></div>
+  </div>
+
+  <footer>
+    Rule-based linguistic pattern matching
+  </footer>
+</div>
+
+<script src="detector.js"></script>
+<script>
+  const btn = document.getElementById("scoreBtn");
+  const input = document.getElementById("inputText");
+  const result = document.getElementById("result");
+  const scoreNumber = document.getElementById("scoreNumber");
+  const barFill = document.getElementById("barFill");
+  const summaryText = document.getElementById("summaryText");
+
+  btn.addEventListener("click", () => {
+    const text = input.value.trim();
+    if (!text) return;
+
+    const { score, categoryWeights } = scoreText(text);
+    const description = getScoreDescription(score, categoryWeights);
+
+    scoreNumber.textContent = score;
+    barFill.style.width = score + "%";
+
+    let color = "var(--low)";
+    if (score > 66) color = "var(--high)";
+    else if (score > 33) color = "var(--mid)";
+    barFill.style.background = color;
+    scoreNumber.style.color = color;
+
+    summaryText.textContent = description;
+    result.style.display = "block";
+  });
+</script>
+</body>
+</html>
