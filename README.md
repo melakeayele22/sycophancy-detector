@@ -1,6 +1,6 @@
 # Sycophancy Detector
 
-A Python tool that scores AI-generated text for sycophantic language — 
+A Python tool that scores AI generated text for sycophantic language — 
 excessive praise, over-affirmation, hyperbolic flattery, and enthusiasm 
 markers — and explains *why* it scored the way it did in plain language.
 
