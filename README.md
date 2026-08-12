@@ -1,26 +1,16 @@
 # Sycophancy Detector
 
-A Python tool that scores AI generated text for sycophantic language — 
-excessive praise, over-affirmation, hyperbolic flattery, and enthusiasm 
-markers — and explains *why* it scored the way it did in plain language.
+A program is used to check AI writing for sycophancy (being overly generous to the point of being dishonest) by scoring them based on sycophantic expressions and providing an explanation in simplified language.  
 
-Sycophancy in AI models (over-flattering, over-agreeing responses that 
-prioritize validation over honesty) is a well-documented issue across 
-major AI labs. This tool combines weighted phrase matching with a 
-lightweight tone signal to flag and quantify that behavior in any given 
-AI response.
+
+
+It is widely known that sycophancy exists in AI discourse (the tendency of AI models to respond in an over-flattering and overly affirming manner) and numerous AI companies are aware of this fact. This tool is unique in that it utilizes the method of weighted word matching along with a basic tone indicator thus being able to address the issue of sycophancy in any AI response.
 
 **[Try the live demo](https://melakeayele22.github.io/sycophancy-detector/)** — no installation needed.
 
 ## How it works
 
-Text is checked against a set of sycophantic phrases across four 
-categories (excessive praise, over-affirmation, enthusiasm markers, 
-hyperbolic flattery), each phrase individually weighted by how strong a 
-signal it is. Matches are normalized against the response's word count, 
-so density matters more than raw count. A secondary tone signal adds a 
-small boost for strongly positive language even without an exact phrase 
-match. The result is a 0–100 score with a plain-language summary.
+The text is checked against a number of phrases belonging to four categories, namely (excessive praise, over-affirmation, enthusiasm markers, hyperbolic flattery). Each expression in each category is assigned certain importance, so that it will produce a more noticeable outcome if used. The overall number of phrases is then compared with the amount of words in the text so that the dialogue density matters too. Additionally there is an extra tone signal that changes the score based on the number of positives.
 
 ## Example
 
@@ -44,18 +34,10 @@ Or open `index.html` locally, or use the live demo link above.
 
 ## Design tradeoffs & limitations
 
-This detector is intentionally rule-based rather than a trained ML 
-model — every point of the score traces back to a specific phrase or 
-tone signal, with no black-box reasoning, and it's fast and easy to 
-extend.
+The detector operates on a rule-based principle, and not as a machine learning (ML) model. Each individual point of scoring is related to a specific word or tone, with no hidden information. Also, it's efficient and has the potential for easy expansions.
 
-The tradeoff: it only catches what it's explicitly been told to look 
-for. It performs well on direct phrasing ("you're absolutely right") but 
-struggles with **indirect flattery** conveyed through metaphor rather 
-than a literal phrase, e.g. *"if excellence were a person, it would be 
-you."* This is a structural limitation of phrase matching, not something 
-more phrases alone can fully close — which is why a trained classifier, 
-generalizing to unseen phrasing, is the planned v2.
+
+The disadvantage of such a system is that it only catches expressions that were programmed in advance. The system is effective at detecting expressions that use direct phrases ("you are right") but has a hard time with indirect compliments expressed in metaphors rather than just words (e.g. "If there was a personification for excellence, it would have been you"). This the limitation of such a phrase-matching approach, rather than something that can be compensated by having more phrases. Hence, the intention is to build a model which would be able to generalize its knowledge and detect never seen phrases.
 
 ## Project status
 
