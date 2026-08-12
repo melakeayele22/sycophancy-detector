@@ -213,10 +213,10 @@ function buildLengthContext(wordCount, score) {
  
   if (score <= 20) {
     return `Across this ${lengthDesc} response (${wordCount} words), the sycophantic phrases identified were sparse enough that they don't meaningfully affect the overall tone.`;
-  } else if (score <= 50) {
-    return `Given the ${lengthDesc} length of this response (${wordCount} words), the sycophantic language present is noticeable but diluted rather than concentrated.`;
+   } else if (score <= 50) {
+    return `Given this ${lengthDesc} response (${wordCount} words), the sycophantic language present is noticeable but diluted rather than concentrated.`;
   } else {
-    return `Even accounting for the ${lengthDesc} length of this response (${wordCount} words), the sycophantic language is dense enough to dominate the overall tone.`;
+    return `Even accounting for this ${lengthDesc} response (${wordCount} words), the sycophantic language is dense enough to dominate the overall tone.`;
   }
 }
  

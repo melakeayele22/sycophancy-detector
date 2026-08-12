@@ -197,11 +197,11 @@ def build_length_context(word_count, score):
                 f"sycophantic phrases identified were sparse enough that they don't "
                 f"meaningfully affect the overall tone.")
     elif score <= 50:
-        return (f"Given the {length_desc} length of this response ({word_count} words), "
+        return (f"Given this {length_desc} response ({word_count} words), "
                 f"the sycophantic language present is noticeable but diluted rather "
                 f"than concentrated.")
     else:
-        return (f"Even accounting for the {length_desc} length of this response "
+        return (f"Even accounting for this {length_desc} response "
                 f"({word_count} words), the sycophantic language is dense enough to "
                 f"dominate the overall tone.")
  
